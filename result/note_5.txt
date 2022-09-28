@@ -1,0 +1,3 @@
+Check if the IP addresses list to remove is empty or not ?
+
+If this list is empty we will have an error later

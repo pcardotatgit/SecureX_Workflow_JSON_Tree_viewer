@@ -1,0 +1,11 @@
+import sys
+var=sys.argv[1].strip()
+empty=0
+if len(var)>6:
+    empty=0
+else:
+    empty=1
+outlist=''
+observable_list=var.split('\n')
+for item in observable_list:
+    outlist=outlist+item+'\n'

@@ -1,0 +1,3 @@
+This workflow updates your Judgments list for a specific source into your SecureX private Intelligence.
+The purpose of this is to be able to deploy this list into INTERNET firewalls or any other solutions that could need such feeds.
+

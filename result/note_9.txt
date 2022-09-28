@@ -1,0 +1,4 @@
+Failed to search for the indicator "$workflow.definition_workflow_01ML39FS25W1V5nR5onJGG8OBgXRuGG8y79.local.variable_workflow_01ML3OGSXO15K2DY4fUvR8Vh9QbHoJezgaf$_$activity.definition_activity_01ML3PI1DN9N547S7mrpKLPl4ohlCYHOggx.output.script_queries.observable_out$"
+
+Status code: $activity.definition_activity_01NUV9NBNQRGA7Y9fgf6fm5t5tWAv0Uzq82.output.status_code$
+Response body: $activity.definition_activity_01NUV9NBNQRGA7Y9fgf6fm5t5tWAv0Uzq82.output.response_body$

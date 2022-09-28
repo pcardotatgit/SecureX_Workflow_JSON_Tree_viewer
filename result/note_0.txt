@@ -1,0 +1,3 @@
+set the value of this to : -no-    if you prefer to read one of the global generic observable list ( ip, url, domain, sha256 ).
+OR
+Put here the observable list you want to add into provate judgment  ( one observable per line )

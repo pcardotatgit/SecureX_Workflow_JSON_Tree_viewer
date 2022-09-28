@@ -1,0 +1,25 @@
+import json, sys
+from datetime import datetime, date, timedelta
+
+# Get the current date/time
+dateTime = datetime.now()
+
+# Build the judgement object
+judgment_object = {}
+judgment_object["schema_version"] = "1.0.19"
+judgment_object["observable"] = {
+	"value": sys.argv[1],
+	"type": sys.argv[2]
+}
+judgment_object["type"] = "judgement"
+judgment_object["source"] = sys.argv[3]
+judgment_object["disposition"] = int(sys.argv[5])
+judgment_object["reason"] = ""
+judgment_object["disposition_name"] = sys.argv[4]
+judgment_object["priority"] = 95
+judgment_object["severity"] = "Info"
+judgment_object["tlp"] = "amber"
+judgment_object["timestamp"] = dateTime.strftime("%Y-%m-%dT%H:%M:%SZ")
+judgment_object["confidence"] = "High"
+
+judgment_json = json.dumps(judgment_object)

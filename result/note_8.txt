@@ -1,0 +1,15 @@
+import sys
+
+observable_type = sys.argv[1]
+observable_out = ""
+
+if observable_type == "domain":
+	observable_out = "Domain"
+elif observable_type == "ip":
+	observable_out = "IPv4"
+elif observable_type == "ipv6":
+	observable_out = "IPv6"
+elif observable_type == "sha256":
+	observable_out = "SHA256"
+elif observable_type == "url":
+	observable_out = "URL"

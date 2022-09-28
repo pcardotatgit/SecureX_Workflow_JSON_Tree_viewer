@@ -1,0 +1,36 @@
+import sys
+import json
+
+all_ip_original_text=sys.argv[1]
+blocked_ip_text=sys.argv[2]
+judgement_text=sys.argv[3]
+ip_original_list=[]
+ips_to_add=""
+ips_to_remove=""
+IDs_to_remove=""
+ips_to_remove_length=0
+ip_original_list_length=0
+ips_to_add_length=0
+ip_original_list=all_ip_original_text.split('\n')
+blocked_ip_list=blocked_ip_text.split('\n')
+judgment_list=judgement_text.split('\n')
+item_text=""
+for item2 in blocked_ip_list:    
+    if item2 not in ip_original_list:       
+        ips_to_remove+=item2+'\n'
+        for a in judgment_list:
+            if item2 in a:
+                zList=a.split('/')
+                id=zList[5]
+                #IDs_to_remove+='https://private.intel.eu.amp.cisco.com/ctia/judgement/'
+                IDs_to_remove+=id+'\n'
+                ips_to_remove_length+=1
+for item in ip_original_list:
+    ip_original_list_length+=1
+    if item not in blocked_ip_list:
+        ips_to_add_length+=1
+        ips_to_add+=item+'\n'
+#ips_to_remove_length=str(ips_to_remove_length)
+ip_original_list_length=str(ip_original_list_length)
+ips_to_add_length=str(ips_to_add_length)
+

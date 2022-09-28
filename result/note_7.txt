@@ -1,0 +1,10 @@
+This workflow creates  a judgement for it in SecureX Threat Response. Once a judgement is created, the observable will appear on a feed which Secure Firewall polls for observable information. Supported observables: domain, ip, ipv6, sha256, url
+
+Note: Workflow 0015A should be executed to create the required indicators and feeds in SecureX before you run this workflow. See the documentation for more information.
+
+Target Group: Default TargetGroup
+
+Targets: CTR_For_Access_Token, Private_CTIA_Target
+
+Steps:
+Please see: https://ciscosecurity.github.io/sxo-05-security-workflows/workflows/0015B
