@@ -10,7 +10,7 @@ The tool aims to help you to easily clean, optimize, secure the workflows you mi
 
 ## Dependancies
 
-You need to install the 2 following libraries :
+You need to install the 2 following python modules :
 
 - crayons
 - ijson
@@ -18,6 +18,8 @@ You need to install the 2 following libraries :
 ## Installation
 
 Clone the whole content of this repository into your Python Workstation.
+
+    git clone https://github.com/pcardotatgit/SecureX_Workflow_JSON_Tree_viewer.git
 
 Install crayons and ijson 
 
@@ -29,10 +31,9 @@ And that's it
 ## Run the application
 
 
-
 - Step 1 you must copy and paste the SecureX JSON workflow export into the  **sxo_json_workflow** subfolder. This subfolder is supposed to contains only one JSON file. If several JSON files are located into this subfolder, only the last one will be computed.
 - Step 2 Open a console terminal and go to the application directory into your laptop
-- Step 3 run the **1-sxo_json_workflow_to_dtree.py** script
+- Step 3 run the **1-sxo_json_workflow_to_tree.py** script
 
 .
 
