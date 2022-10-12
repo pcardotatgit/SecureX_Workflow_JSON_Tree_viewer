@@ -26,7 +26,7 @@ In a second hand, the tool help as well to understand how an existing workflow w
 
 ## Use SecureX Worflow Analyser first
 
-In this clean up workflow operation, definitely use the Cisco Workflow Online Tool first.
+In this clean up workflow operation, definitely use the [Cisco Workflow Online Tool first](https://ciscosecurity.github.io/sxo-05-security-workflows/analyzer).
 
 This tool highlights all the key points to corrects into your workflows, and gives you recommandations.
 
