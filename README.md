@@ -43,7 +43,7 @@ And that's it
 
 The resulting file is the index.html file located into the **result** subfolder.
 
-Open it with you browser and the Tree Graph will appear 
+Open it with your browser and the Tree Graph will appear 
 
 ![](./images/img1.png)
 

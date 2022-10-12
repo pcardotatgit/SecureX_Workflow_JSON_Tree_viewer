@@ -132,10 +132,10 @@ def icon(line,valeur):
     if 'workflow'==line:
         icone='img/run.gif'  
         #gio=input('OK:')
-    elif 'target_groups' == line:
+    elif 'target_groups' in line:
         icone='img/target_group.gif'          
     elif 'target' in line:
-        icone='img/target.gif'        
+        icone='img/target.gif'         
     elif 'actions'==line:
         icone='img/task.gif'          
     elif 'schedules' in line:
@@ -168,7 +168,15 @@ def icon(line,valeur):
         elif valeur=='<u>For Each</u>':
             icone='img/loop.gif'   
         elif valeur=='<u>Completed</u>':
-            icone='img/checkbox_no_full.gif'                         
+            icone='img/checkbox_no_full.gif'  
+        elif valeur=='<u>Break</u>':
+            icone='img/red_cross.gif'             
+        elif valeur=='<u>Parallel Block</u>':
+            icone='img/parallel_bloc.gif'    
+        elif valeur=='<u>Parallel Branch</u>':
+            icone='img/parallel_branch.gif'  
+        elif valeur=='<u>While Loop</u>':
+            icone='img/while_loop.gif'                        
         else:
             icone='' 
     elif 'scope' ==line:
@@ -237,7 +245,8 @@ def parse_json(json_filename,debug):
                 fichier.write(line_out)
                 fichier.write("\r")  
                 if link=='':
-                    link='no_link1.html'
+                    #link='no_link1.html'
+                    link=''
                 parent=levels[level_index]
                 str_parent=str(parent)
                 if debug:
