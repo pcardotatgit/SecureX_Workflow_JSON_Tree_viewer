@@ -1,4 +1,4 @@
-# SecureX JSON workflows parser
+# SecureX JSON workflow parser
 
 This tool is a JSON parser for SecureX Workflow files.
 
