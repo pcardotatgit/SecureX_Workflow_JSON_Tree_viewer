@@ -60,9 +60,7 @@ And that's it
 
 - Step 1 you must copy and paste the SecureX JSON workflow export into the  **sxo_json_workflow** subfolder. This subfolder is supposed to contains only one JSON file. If several JSON files are located into this subfolder, only the last one will be computed.
 - Step 2 Open a console terminal and go to the application directory into your laptop
-- Step 3 run the **1-sxo_json_workflow_to_tree.py** script
-
-.
+- Step 3 run the **1-sxo_json_workflow_to_tree.py** script.
 
     python 1-sxo_json_workflow_to_tree.py
 
