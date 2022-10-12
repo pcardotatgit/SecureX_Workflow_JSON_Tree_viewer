@@ -1,12 +1,25 @@
 # SecureX JSON workflows parser
 
-This tools is a JSON parser that is dedicated to SecureX Workflow JSON files.
+This tool is a JSON parser for SecureX Workflow files.
 
-It gives a Visual Tree representation view of SecureX workflows that help you to easily understand their structure and how they work.
+It translates SecureX Workflow JSON files into a clickable Tree view representation that help you to easily understand their structure and how they work.
 
-All workflow content are represented, with python scripts as well. 
+All workflow contents are represented in the Tree View. Even descriptions and python scripts that can be displayed by clicking on dedicated links. 
 
-The tool aims to help you to easily clean, optimize, secure the workflows you might create. In a more easier way than the Workflow editor allows.
+The main reason why I wrote this tool was for helping me to easily create worflow documentations based on the instruction [available here](https://ciscosecurity.github.io/sxo-05-security-workflows/content-quality/documentation-template). In order to publish clean Workflows and documentations.
+
+If you have a look to the documentation template you will see all the key information that are expected. Targets, input variables / output variables, subworkflow dependancies...
+
+After having creating a new worklow, the next steps are to clean it up, optimizing it, secure it, Minimize workflow dependancies... 
+
+Identify if we didn't let into it some credentials. Check variable and their scopes, list all the targets and their details. If we put correctly comments and descriptions. etc..etc.. Which 
+
+All this tasks can be done into the workflow editor but personnaly a think the workflow editor is not very user freindly for this. I wanted something that help me to go very fast. Tree View is probably one of the strongest tool for acheiving such goals.
+
+So this tool aims to help you to easily clean, optimize, secure the workflows you might create. In a more easier way than the Workflow editor allows you to do.
+
+In a second hand, the tool help as well to understand how an existing workflow works and do some reverse engineering on it.
+
 
 ## Dependancies
 
@@ -43,8 +56,14 @@ And that's it
 
 The resulting file is the index.html file located into the **result** subfolder.
 
+    ./result/index.html   just open it with your browser
+
 Open it with your browser and the Tree Graph will appear 
 
 ![](./images/img1.png)
 
-This a clickable graph. You can browse the whole tree
+The Tree View is a clickable graph. You can browse the whole tree
+
+## What's Next ?
+
+Generate automatically the markdown documentation for Workflow submission to Cisco
