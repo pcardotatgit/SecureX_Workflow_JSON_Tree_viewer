@@ -24,6 +24,16 @@ So this tool aims to help you to easily clean, optimize, secure the workflows yo
 
 In a second hand, the tool help as well to understand how an existing workflow works and do some reverse engineering on it.
 
+## Use SecureX Worflow Analyser first
+
+In this clean up workflow operation, definitely use the Cisco Workflow Online Tool first.
+
+This tool highlights all the key points to corrects into your workflows, and gives you recommandations.
+
+These recommandations are best practices, and the tool help to acquire good habits.
+
+Just copy and paste your Workflow JSON content into the textarea box and click on **Analyse**.
+
 
 ## Dependancies
 
