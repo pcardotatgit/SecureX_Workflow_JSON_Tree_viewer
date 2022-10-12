@@ -4,6 +4,8 @@ This tool is a JSON parser for SecureX Workflow files.
 
 It translates SecureX Workflow JSON files into a clickable Tree view representation that help you to easily understand their structure and how they work.
 
+![](./images/img1.png)
+
 All workflow contents are represented in the Tree View. Even descriptions and python scripts that can be displayed by clicking on dedicated links. 
 
 ## Why this tool ?
