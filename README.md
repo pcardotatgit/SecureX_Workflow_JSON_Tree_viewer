@@ -6,6 +6,8 @@ It translates SecureX Workflow JSON files into a clickable Tree view representat
 
 All workflow contents are represented in the Tree View. Even descriptions and python scripts that can be displayed by clicking on dedicated links. 
 
+## Why this tool ?
+
 The main reason why I wrote this tool was for helping me to easily create worflow documentations based on the instruction [available here](https://ciscosecurity.github.io/sxo-05-security-workflows/content-quality/documentation-template). In order to publish clean Workflows and documentations.
 
 If you have a look to the documentation template you will see all the key information that are expected. Targets, input variables / output variables, subworkflow dependancies...
