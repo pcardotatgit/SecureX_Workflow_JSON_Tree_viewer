@@ -18,6 +18,8 @@ or implied.
 
 What is this :
     read a SecureX workflow JSON export and parse it and Creates a trees graph from 
+    
+version 20221012
 '''
 from crayons import *
 import sys
@@ -236,7 +238,7 @@ def parse_json(json_filename,debug):
                         notes_index+=1                        
                         valeur='___( CLICK on this link to see object content )'
                 else:
-                    valeur=value
+                    valeur=value                      
                     if debug:
                         print('not a string')
                 if debug:                        
@@ -284,15 +286,25 @@ def parse_json(json_filename,debug):
                     else:
                         color2='black'  
                 if key=='name' or key=='display_name':
-                    valeur='<u>'+valeur+'</u>'
+                    valeur='<u>'+valeur+'</u>'                  
                 if type(valeur)==str:              
                     if valeur=='None':
                         valeur=''
                     else:
-                        valeur=valeur.replace('.','  (.)  ')  
-                if valeur is None:
-                    valeur=''                        
-                description='<span style="color:blue;font-weight:bolder">{}</span> : <span style="color:{};font-weight:bolder">{}</span> {} '.format( key,color2, valeur, prefix2) 
+                        valeur=valeur.replace('.',' . ') 
+                        if "secure_string" in valeur:
+                            color2='orange'
+                if valeur is None:                     
+                        valeur=''
+                check_key_list=['variable_value_new','variable_to_update']
+                if key in check_key_list and valeur=='':
+                    color2='red'
+                    valeur='Is empty... Is it Realy Missing ?  Check This...' 
+                if key =="skip_execution" and valeur==True:    
+                    color2='red'
+                elif key =="skip_execution" and valeur==False: 
+                    color2='green'
+                description='<span style="color:blue;font-weight:bolder"> {}</span> : <span style="color:{};font-weight:bolder">{}</span> {} '.format( key,color2, valeur, prefix2) 
                 icone=icon(key,valeur)
                 icone_open=icone
                 title='dtree'
@@ -382,12 +394,13 @@ def parse_json(json_filename,debug):
                             valeur='<u>'+valeur+'</u>'
                         if type(valeur)==str:
                             if valeur=='None':
-                                valeur=''
+                                color2='red'
+                                valeur='MISSING ?'
                             else:
-                                valeur=valeur.replace('.','  (.)  ') 
+                                valeur=valeur.replace('.','  .  ')                                  
                         if valeur is None:
-                            valeur=''
-                        description='<span style="color:blue;font-weight:bolder">{}</span> : <span style="color:{};font-weight:bolder">{}</span> {} '.format( key,color2, valeur, prefix2)                                            
+                            valeur=''                           
+                        description='<span style="color:blue;font-weight:bolder"> {}</span> : <span style="color:{};font-weight:bolder">{}</span> {} '.format( key,color2, valeur, prefix2)                                            
                     icone=icon(key,valeur)
                     icone_open=icone
                     title='dtree'

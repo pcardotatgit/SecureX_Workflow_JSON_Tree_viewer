@@ -64,7 +64,7 @@ And that's it
 
 .
 
-    python 1-sxo_json_workflow_to_dtree.py
+    python 1-sxo_json_workflow_to_tree.py
 
 ## Result
 
