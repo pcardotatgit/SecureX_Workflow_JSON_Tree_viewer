@@ -28,6 +28,8 @@ import datetime
 import json
 import ijson
 import os
+import glob
+
 
 debug=0
 display_path=0 
@@ -48,7 +50,16 @@ text_out='''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www
         d = new dTree('d');
         d.add(0,-1,'JSON Tree Graph');        
 '''
-    
+
+def delete_notes():
+    file_list=glob.glob("./result/note_*.txt")
+    for fichier in file_list:
+        fichier=fichier.replace('\\','/')       
+        print(fichier)
+        if os.path.exists(fichier):
+            print(' ok delete ',fichier)
+            os.remove(fichier)  
+            
 def read_json(filename):
     '''
         read json text file and convert it into json data
@@ -139,7 +150,7 @@ def icon(line,valeur):
     elif 'target' in line:
         icone='img/target.gif'         
     elif 'actions'==line:
-        icone='img/task.gif'          
+        icone='img/task.gif' 
     elif 'schedules' in line:
         icone='img/schedule.gif' 
     elif 'calendar' ==line:
@@ -153,7 +164,7 @@ def icon(line,valeur):
     elif 'subworkflows' in line:
         icone='img/subworkflow.gif' 
     elif 'dependent_workflows' in line:
-        icone='img/dependent_workflow.gif'
+        icone='img/subworkflow.gif'
     elif 'atomic' in line:
         icone='img/a_atomic.gif'        
     elif 'name' ==line:
@@ -178,7 +189,7 @@ def icon(line,valeur):
         elif valeur=='<u>Parallel Branch</u>':
             icone='img/parallel_branch.gif'  
         elif valeur=='<u>While Loop</u>':
-            icone='img/while_loop.gif'                        
+            icone='img/while_loop.gif'       
         else:
             icone='' 
     elif 'scope' ==line:
@@ -294,6 +305,8 @@ def parse_json(json_filename,debug):
                         valeur=valeur.replace('.',' . ') 
                         if "secure_string" in valeur:
                             color2='orange'
+                        elif "subworkflow" in valeur:
+                            color2='red'                            
                 if valeur is None:                     
                         valeur=''
                 check_key_list=['variable_value_new','variable_to_update']
@@ -453,6 +466,9 @@ def parse_json(json_filename,debug):
         return(tree)
         
 if __name__=="__main__":
+    print(yellow("Delete old notes",bold=True))
+    delete_notes()
+    print(yellow("Done",bold=True))
     files =[file for file in os.listdir('./sxo_json_workflow')]
     for file in files:
         fichier='./sxo_json_workflow/'+file
