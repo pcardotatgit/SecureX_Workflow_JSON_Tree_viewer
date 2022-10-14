@@ -306,7 +306,7 @@ def parse_json(json_filename,debug):
                         if "secure_string" in valeur:
                             color2='orange'
                         elif "subworkflow" in valeur:
-                            color2='red'                            
+                            color2='red'                                
                 if valeur is None:                     
                         valeur=''
                 check_key_list=['variable_value_new','variable_to_update']
@@ -317,6 +317,10 @@ def parse_json(json_filename,debug):
                     color2='red'
                 elif key =="skip_execution" and valeur==False: 
                     color2='green'
+                elif key =="user" and valeur: 
+                    color2='red' 
+                elif key =="host" and valeur: 
+                    color2='red'                      
                 description='<span style="color:blue;font-weight:bolder"> {}</span> : <span style="color:{};font-weight:bolder">{}</span> {} '.format( key,color2, valeur, prefix2) 
                 icone=icon(key,valeur)
                 icone_open=icone
