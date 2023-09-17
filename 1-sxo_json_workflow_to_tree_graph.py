@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Copyright (c) 2022 Cisco and/or its affiliates.
+Copyright (c) 2023 Cisco and/or its affiliates.
 
 This software is licensed to you under the terms of the Cisco Sample
 Code License, Version 1.1 (the "License"). You may obtain a copy of the
@@ -19,7 +19,7 @@ or implied.
 What is this :
     read a SecureX workflow JSON export and parse it and Creates a trees graph from 
     
-version 20221012
+version 20230917
 '''
 from crayons import *
 import sys
@@ -40,6 +40,18 @@ text_out='''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www
     <title>Visual JSON Parser for SecureX Workflows</title>
     <link rel="StyleSheet" href="dtree.css" type="text/css" />
     <script type="text/javascript" src="dtree.js"></script>
+    <script language='javascript'>
+        function popup_window( url, id, width, height )
+        {
+           //extract the url parameters if any, and pass them to the called html
+           var tempvar=document.location.toString(); // fetch the URL string
+           var passedparams = tempvar.lastIndexOf("?");
+           if(passedparams > -1)
+              url += tempvar.substring(passedparams);
+          popup = window.open( url, id, 'toolbar=no,scrollbars=yes,location=no,statusbar=no,menubar=no,resizable=no,width=' + width + ',height=' + height + '' );
+          popup.focus();
+        }    
+    </script>    
 </head>
 <body>
 <h2>SecureX JSON workflow to Tree Graph</h2>
@@ -246,6 +258,7 @@ def parse_json(json_filename,debug):
                         with open(note_name,'w') as note:
                             note.write(value)
                         link='./note_'+str(notes_index)+'.txt'
+                        link='javascript:popup_window(\'./note_'+str(notes_index)+'.txt\', \'note\', 700, 500);'
                         notes_index+=1                        
                         valeur='___( CLICK on this link to see object content )'
                 else:
@@ -328,7 +341,7 @@ def parse_json(json_filename,debug):
                 target=''
                 if parent==-1:
                     description='JSON Tree'                 
-                line_out2=f"        d.add({parent_base},{str_parent},'{description}','{link}','{title}','{target}','{icone}','{icone_open}');"
+                line_out2=f"        d.add({parent_base},{str_parent},'{description}',\"{link}\",'{title}','{target}','{icone}','{icone_open}');"
                 print(cyan(line_out2,bold=True))
                 if debug:
                     gio=input('-- NEW KEY ADDED :')                
@@ -493,6 +506,6 @@ if __name__=="__main__":
 
     print("==========================================================")
     print()
-    print(yellow('DONE - Open the /result.index.html file with your browser ',bold=True))
+    print(yellow('DONE - Open the /result/index.html file with your browser ',bold=True))
     print()   
     print("==========================================================") 
