@@ -167,6 +167,8 @@ def icon(line,valeur):
         icone='img/schedule.gif' 
     elif 'calendar' ==line:
         icone='img/schedule.gif'  
+    elif 'variable_value_new' in line:
+        icone='img/set_variable.gif' 
     elif 'variable' in line:
         icone='img/var_out.gif'         
     elif 'triggers' == line:
