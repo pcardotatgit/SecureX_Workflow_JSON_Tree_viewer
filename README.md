@@ -1,8 +1,8 @@
-# SecureX JSON workflow parser
+# XDR JSON workflow parser
 
 This tool is a JSON parser for SecureX Workflow files.
 
-It translates SecureX Workflow JSON files into a clickable Tree view representation that help you to easily understand their structure and how they work.
+It translates XDR/SecureX Workflow JSON files into a clickable Tree view representation that help you to easily understand their structure and how they work.
 
 ![](./images/img1.png)
 
@@ -16,11 +16,11 @@ If you have a look to the documentation template you will see all the key inform
 
 After having creating a new worklow, the next steps are to clean it up, optimizing it, secure it, Minimize workflow dependancies... 
 
-Identify if we didn't let into it some credentials. Check variable and their scopes, list all the targets and their details. If we put correctly comments and descriptions. etc..etc.. Which 
+Identify quickly if we ever let some sensitive data like credentials into the workflow. Check variables and their scopes, list all the targets and their details. If we put correctly comments and descriptions ? etc..etc..
 
-All this tasks can be done into the workflow editor but personnaly a think the workflow editor is not very user freindly for this. I wanted something that help me to go very fast. Tree View is probably one of the strongest tool for acheiving such goals.
+All this tasks can be done into the workflow editor but it is not very user freindly for this. I wanted something that help me to go very fast. Tree View is probably one of the best visualization representation tool for acheiving such goals.
 
-So this tool aims to help you to easily clean, optimize, secure the workflows you might create. In a more easier way than the Workflow editor allows you to do.
+So this tool aims to help you to easily clean, optimize, secure the workflows you might create. In a more easier way than the Workflow editor does.
 
 In a second hand, the tool help as well to understand how an existing workflow works and do some reverse engineering on it.
 
@@ -35,7 +35,7 @@ These recommandations are best practices, and the tool help to acquire good habi
 Just copy and paste your Workflow JSON content into the textarea box and click on **Analyse**.
 
 
-## Dependancies
+## Dependencies
 
 You need to install the 2 following python modules :
 
@@ -58,24 +58,25 @@ And that's it
 ## Run the application
 
 
-- Step 1 you must copy and paste the SecureX JSON workflow export into the  **sxo_json_workflow** subfolder. This subfolder is supposed to contains only one JSON file. If several JSON files are located into this subfolder, only the last one will be computed.
+- Step 1 you must copy and paste the XDR JSON workflow export file into the  **/sxo_json_workflow** subfolder. This subfolder is supposed to contains **only one JSON file** at a time. If several JSON files are located into this subfolder, only the last one will be computed.
 - Step 2 Open a console terminal and go to the application directory into your laptop
-- Step 3 run the **1-sxo_json_workflow_to_tree.py** script.
+- Step 3 run the **1-sxo_json_workflow_to_tree_graph-SIMPLE.py** script.
 
-    python 1-sxo_json_workflow_to_tree.py
+    python 1-sxo_json_workflow_to_tree_graph-SIMPLE.py
+    
+This script gives an output that contains only key information needed to understand quickly the workflow.
 
-## Result
+But you can run the **2-sxo_json_workflow_to_tree_graph-DETAILED.py** to get the full workflow details. Every key contained into the JSON file in their original format
 
-The resulting file is the index.html file located into the **result** subfolder.
+## Open the Result
 
-    ./result/index.html   just open it with your browser
+The resulting file is the index.html file located into the **/result** subfolder.
 
-Open it with your browser and the Tree Graph will appear 
+    ./result/index.html   just open it with your browser by clicking on it
+
+Open it with your browser and the Tree Graph appears
 
 ![](./images/img1.png)
 
 The Tree View is a clickable graph. You can browse the whole tree
 
-## What's Next ?
-
-Generate automatically the markdown documentation for Workflow submission to Cisco

@@ -17,9 +17,11 @@ IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.
 
 What is this :
-    read a SecureX workflow JSON export and parse it and Creates a trees graph from 
+    read an XDR workflow JSON export and parse it
+    Then Create a trees graph that shows FULL workflo details in order to dig into the workflow structure  
     
-version 20230917
+version 20240504
+
 '''
 from crayons import *
 import sys
@@ -37,7 +39,7 @@ display_path=0
 text_out='''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-    <title>Visual JSON Parser for SecureX Workflows</title>
+    <title>Visual JSON Parser for XDR Workflows</title>
     <link rel="StyleSheet" href="dtree.css" type="text/css" />
     <script type="text/javascript" src="dtree.js"></script>
     <script language='javascript'>
@@ -54,7 +56,7 @@ text_out='''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www
     </script>    
 </head>
 <body>
-<h2>SecureX JSON workflow to Tree Graph</h2>
+<h2>XDR JSON workflow to Tree Graph</h2>
 <div class="dtree">
     <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
     <script type="text/javascript">
@@ -64,7 +66,7 @@ text_out='''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www
 '''
 
 def delete_notes():
-    file_list=glob.glob("./result/note_*.txt")
+    file_list=glob.glob("./result/note_*.html")
     for fichier in file_list:
         fichier=fichier.replace('\\','/')       
         print(fichier)
@@ -181,6 +183,10 @@ def icon(line,valeur):
         icone='img/subworkflow.gif'
     elif 'atomic' in line:
         icone='img/a_atomic.gif'        
+    elif 'description' in line:
+        icone='img/info.gif' 
+    elif 'script' == line:
+        icone='img/topic.png' 
     elif 'name' ==line:
         print(yellow(f'valeur : {valeur}',bold=True))
         #gio=input('OK:')
@@ -196,6 +202,8 @@ def icon(line,valeur):
             icone='img/loop.gif'   
         elif valeur=='<u>Completed</u>':
             icone='img/checkbox_no_full.gif'  
+        elif valeur=='<u>description</u>':
+            icone='img/info.gif'
         elif valeur=='<u>Break</u>':
             icone='img/red_cross.gif'             
         elif valeur=='<u>Parallel Block</u>':
@@ -218,6 +226,10 @@ def icon(line,valeur):
     else:
         icone=''
     return(icone)
+    
+def format_variable_name(variable):
+    
+    return(new_variable)
     
 def parse_json(json_filename,debug):
     tree=''
@@ -256,11 +268,13 @@ def parse_json(json_filename,debug):
                     else:
                         if debug:
                             print(cyan(valeur,bold=True))
-                        note_name='./result/note_'+str(notes_index)+'.txt'
+                        note_name='./result/note_'+str(notes_index)+'.html'
                         with open(note_name,'w') as note:
+                            note.write('<html><head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script></head><body><pre><code>')
                             note.write(value)
-                        link='./note_'+str(notes_index)+'.txt'
-                        link='javascript:popup_window(\'./note_'+str(notes_index)+'.txt\', \'note\', 700, 500);'
+                            note.write('\n</code></pre><script>hljs.highlightAll();</script></body></html>')
+                        link='./note_'+str(notes_index)+'.html'
+                        link='javascript:popup_window(\'./note_'+str(notes_index)+'.html\', \'note\', 700, 500);'
                         notes_index+=1                        
                         valeur='___( CLICK on this link to see object content )'
                 else:
