@@ -250,7 +250,9 @@ def format_description(description):
     if 'workflow . sub_workflow' in description:
         description=description.replace('<span style="color:black;font-weight:bolder">','<span style="color:DarkRed;font-weight:bolder">')
     if 'unique_name' in description:
-        description=description.replace('<span style="color:black;font-weight:bolder">','<span style="color:LightBlue;">')
+        description=description.replace('<span style="color:black;font-weight:bolder">','<span style="color:LightBlue;font-weight:bolder">')
+    if 'title' in description:
+        description=description.replace('<span style="color:black;font-weight:bolder">','<span style="color:DeepSkyBlue;font-weight:bolder">')
     if 'script_arguments' in description:
         description=description.replace('script_arguments','variables sent from workflow to python script')
         description=description.replace('<span style="color:blue;font-weight:bolder">','<span style="color:green;font-weight:bolder">')
@@ -260,7 +262,7 @@ def format_description(description):
         description=description.replace('script_query','python script variable')
     if 'script_queries' in description and 'activity' not in description:
         description=description.replace('script_queries','Results sent from  python script to workflow')
-        description=description.replace('<span style="color:blue;font-weight:bolder">','<span style="color:red;font-weight:bolder">')
+        description=description.replace('<span style="color:blue;font-weight:bolder">','<span style="color:DarkRed;font-weight:bolder">')
     if 'definition_workflow_' in description:
         string_token=description.split('definition_workflow_')[1]
         string_token=string_token.split('.')[0]
