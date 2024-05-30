@@ -32,6 +32,7 @@ import ijson
 import os
 import glob
 
+object_table={}
 
 debug=0
 display_path=0 
@@ -233,7 +234,7 @@ def format_description(description):
     if 'generic . ' in description:
         description=description.split('generic . ')[1]
         #a=input('STOP 2: ')
-    if 'base_type' in description or 'schema_id' in description or 'object_type' in description or 'is_required' in description or 'display_on_wizard' in description or 'is_invisible' in description or 'persist_output' in description or 'populate_columns' in description or 'skip_execution' in description or 'continue_on_failure' in description or 'basic . category' in description or 'category_type' in description or 'disable_certificate_validation' in description or 'delete_workflow_instance' in description or 'allow_auto_redirect' in description or 'allow_headers_redirect' in description or 'continue_on_error_status_code' in description or 'use_custom_format' in description: 
+    if 'base_type' in description or 'schema_id' in description or 'object_type' in description or 'is_required' in description or 'display_on_wizard' in description or 'is_invisible' in description or 'persist_output' in description or 'populate_columns' in description or 'skip_execution' in description or 'continue_on_failure' in description or 'basic . category' in description or 'category_type' in description or 'disable_certificate_validation' in description or 'delete_workflow_instance' in description or 'allow_auto_redirect' in description or 'allow_headers_redirect' in description or 'continue_on_error_status_code' in description or 'use_custom_format' in description or 'corejava' in description: 
         description="hidden..."
         #a=input('STOP : ')
     if 'datatype . ' in description:
@@ -250,7 +251,89 @@ def format_description(description):
         description=description.replace('<span style="color:black;font-weight:bolder">','<span style="color:DarkRed;font-weight:bolder">')
     if 'unique_name' in description:
         description=description.replace('<span style="color:black;font-weight:bolder">','<span style="color:LightBlue;">')
+    if 'script_arguments' in description:
+        description=description.replace('script_arguments','variables sent from workflow to python script')
+        description=description.replace('<span style="color:blue;font-weight:bolder">','<span style="color:green;font-weight:bolder">')
+    if 'script_query' in description and '_name' in description:
+        description=description.replace('script_query_name','Workflow variable')
+    if 'script_query' in description and '_type' not in description:
+        description=description.replace('script_query','python script variable')
+    if 'script_queries' in description and 'activity' not in description:
+        description=description.replace('script_queries','Results sent from  python script to workflow')
+        description=description.replace('<span style="color:blue;font-weight:bolder">','<span style="color:red;font-weight:bolder">')
+    if 'definition_workflow_' in description:
+        string_token=description.split('definition_workflow_')[1]
+        string_token=string_token.split('.')[0]
+        string_token='definition_workflow_'+string_token
+        string_token=string_token.replace('</span>','')
+        string_token=string_token.strip()
+        print('string_token : ',cyan(string_token,bold=True))
+        #print('object_table : ',yellow(object_table['workflows'][string_token],bold=True))
+        if string_token in object_table['workflows'].keys():
+            print(' -> ',red(object_table['workflows'][string_token],bold=True))
+            description=description.replace(string_token,'[ '+object_table['workflows'][string_token]+' ]')
+            description=description.replace('$','')
+    if 'definition_activity_' in description:
+        description=description.replace('$','')
+        string_token=description.split('definition_activity_')[1]
+        string_token=string_token.split('.')[0]
+        string_token='definition_activity_'+string_token
+        string_token=string_token.replace('</span>','')
+        string_token=string_token.strip()
+        print('string_token : ',cyan(string_token,bold=True))        
+        if string_token in object_table['activities'].keys():
+            print(' -> ',red(object_table['activities'][string_token],bold=True))
+            description=description.replace(string_token,'[ '+object_table['activities'][string_token]+' ]')            
+    if 'variable_workflow_' in description:
+        string_token=description.split('variable_workflow_')[1]
+        string_token=string_token.split('.')[0]
+        string_token='variable_workflow_'+string_token
+        string_token=string_token.replace('</span>','')
+        string_token=string_token.strip()
+        print('string_token : ',cyan(string_token,bold=True))        
+        if string_token in object_table['variables'].keys():
+            print(' -> ',red(object_table['variables'][string_token],bold=True))
+            description=description.replace(string_token,'[ '+object_table['variables'][string_token]['name']+' ]')
+            description=description.replace('$','')
+        #sys.exit()
+        #a=input('STOP')
     return(description)
+    
+def create_object_dict(filename):
+    '''
+        read json text file and create the object dictionnary
+    '''
+    object_dict={}
+    object_dict['variables']={} 
+    object_dict['workflows']={} 
+    object_dict['activities']={}
+    with open(filename,'r') as file:
+        text_data=file.read()
+    json_data=json.loads(text_data)   
+    object_dict['workflows'][json_data['workflow']['unique_name']]='This_ Workflow'
+    if 'actions' in json_data['workflow'].keys():
+        for item in json_data['workflow']['actions']:
+            object_dict['activities'][item['unique_name']]=item['title']     
+            if 'blocks' in item.keys():
+                for item2 in item['blocks']:
+                    if 'actions' in item2.keys():
+                        for item3 in item2['actions']:
+                            object_dict['activities'][item3['unique_name']]=item3['title']                  
+    if 'subworkflows' in json_data.keys():
+        for item in json_data['subworkflows']:
+            object_dict['workflows'][item['workflow']['unique_name']]=item['workflow']['name']              
+    for var in json_data['workflow']['variables']:
+        object={}
+        object['name']=var['properties']['name']
+        object['scope']=var['properties']['scope']
+        object['value']=var['properties']['value']
+        object['type']=var['properties']['type']
+        object_dict['variables'][var['unique_name']]=object 
+    payload = json.dumps(object_dict,indent=4,sort_keys=True, separators=(',', ': '))
+    print(yellow(payload,bold=True))
+    #sys.exit()
+    #a=input('STOP')
+    return(object_dict)
     
 def parse_json(json_filename,debug):
     tree=''
@@ -291,9 +374,9 @@ def parse_json(json_filename,debug):
                             print(cyan(valeur,bold=True))
                         note_name='./result/note_'+str(notes_index)+'.html'
                         with open(note_name,'w') as note:
-                            note.write('<html><head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script></head><body><pre><code>')
+                            note.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>python script</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/vs.min.css"></head><body><pre class="with-hljs"><code class="lang-py"><b>')
                             note.write(value)
-                            note.write('\n</code></pre><script>hljs.highlightAll();</script></body></html>')
+                            note.write('\n</b></code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script></body></html>')
                         link='./note_'+str(notes_index)+'.html'
                         link='javascript:popup_window(\'./note_'+str(notes_index)+'.html\', \'note\', 700, 500);'
                         notes_index+=1                        
@@ -529,6 +612,7 @@ if __name__=="__main__":
     for file in files:
         fichier='./sxo_json_workflow/'+file
     #print(fichier) 
+    object_table=create_object_dict(fichier)
     tree=parse_json(fichier,debug)
     footer='''
         document.write(d);
