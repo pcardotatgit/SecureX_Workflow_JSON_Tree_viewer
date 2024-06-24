@@ -20,7 +20,7 @@ What is this :
     read an XDR workflow JSON export and parse it
     Then Create a trees graph that shows only key information in order to understand fast the workflow  
     
-version 20240504
+version 20240624
 
 '''
 from crayons import *
@@ -323,15 +323,18 @@ def create_object_dict(filename):
                             object_dict['activities'][item3['unique_name']]=item3['title']                  
     if 'subworkflows' in json_data.keys():
         for item in json_data['subworkflows']:
-            object_dict['workflows'][item['workflow']['unique_name']]=item['workflow']['name']              
-    for var in json_data['workflow']['variables']:
-        object={}
-        object['name']=var['properties']['name']
-        object['scope']=var['properties']['scope']
-        object['value']=var['properties']['value']
-        object['type']=var['properties']['type']
-        object_dict['variables'][var['unique_name']]=object 
-    payload = json.dumps(object_dict,indent=4,sort_keys=True, separators=(',', ': '))
+            object_dict['workflows'][item['workflow']['unique_name']]=item['workflow']['name']    
+    if json_data['workflow']['variables']:
+        for var in json_data['workflow']['variables']:
+            object={}
+            object['name']=var['properties']['name']
+            object['scope']=var['properties']['scope']
+            object['value']=var['properties']['value']
+            object['type']=var['properties']['type']
+            object_dict['variables'][var['unique_name']]=object 
+    else:
+        object_dict['variables']={}
+    payload = json.dumps(object_dict,indent=4,sort_keys=True, separators=(',', ': '))    
     print(yellow(payload,bold=True))
     #sys.exit()
     #a=input('STOP')
@@ -378,7 +381,7 @@ def parse_json(json_filename,debug):
                         with open(note_name,'w') as note:
                             note.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>python script</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/vs.min.css"></head><body><pre class="with-hljs"><code class="lang-py"><b>')
                             note.write(value)
-                            note.write('\n</b></code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script></body></html>')
+                            note.write('\n\n\n\n\n\n\n</b></code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script></body></html>')
                         link='./note_'+str(notes_index)+'.html'
                         link='javascript:popup_window(\'./note_'+str(notes_index)+'.html\', \'note\', 700, 500);'
                         notes_index+=1                        
